@@ -4,6 +4,7 @@ import Nav from './Nav'
 import Pics from './Pics'
 import Search from './Search'
 import { PaginationBtn } from './PaginationBtn'
+import Fallback from './Fallback'
 
 export {
     Button,
@@ -11,5 +12,6 @@ export {
     Nav,
     Pics,
     Search,
-    PaginationBtn
+    PaginationBtn,
+    Fallback
 }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useQuery} from 'react-query'
-import {Button, Card, PaginationBtn} from '../components'
+import {Button, Card, PaginationBtn, Nav} from '../components'
 
 
 export default function Pics() {
@@ -9,6 +9,8 @@ export default function Pics() {
     const [page, setPage] = useState(1)
     const [pages, setPages] = useState([])
     // search functionality will be there where there is data fetching.
+    const [search, setSearch] = useState('')
+    const [category, setCategory] = useState('')
     // const [search, setSearch] = useState("")
     // this useQuery will do some meddling with our fetching function so if you want to check 
     // in case of pagination then pass anything in the feching function as paramenters and console.log it.
@@ -18,11 +20,13 @@ export default function Pics() {
         isError,
         isFetched,
         error
-    } = useQuery(["pics", page], async() => {
+    } = useQuery(["pics", page, search, category], async() => { // here array is like dependency array.
         const data = await axios.get('https://pixabay.com/api/', {
             params:{
                 key: '17392926-1008cec1ed6e3cf7088aafc7e',
                 page: page,
+                q: search,
+                category: category
             }
         })
         return data
@@ -67,28 +71,30 @@ export default function Pics() {
     }, [page])
 
   return (
-    <div className='px-[5%]'>
-        {
-            isLoading && <div className='text-2xl font-semibold text-center'>Loading...</div>
+      <>
+      <Nav setSearch={setSearch} setCategory={setCategory}/>
+      <div className='px-[5%] overflow-auto'>
+      {
+          isLoading && <div className='text-2xl font-semibold text-center'>Loading...</div>
         }
-       <div className='w-full masonry mb-8 h-[90%]'>
-             {
-            isFetched && data.data.hits.map(curr => {
+        <div className='w-full masonry mb-8 overflow-auto'>
+        {
+            isFetched && data.data.hits?.map(curr => {
                 return(
-                   <Card image={curr.webformatURL} 
+                    <Card image={curr.webformatURL} 
                     height={curr.webfromatHeight}
                     width={curr.webfromatWidth}
                     userImageUrl = {curr.userImageURL}
                     userName = {curr.user}
                     likes = {curr.likes}
-                     ></Card>
-                )
-            })
-        }
-       </div>
-       <div className="flex items-center justify-between w-full h-32 mx-auto mb-8">
-        <Button onClick={Prev}>&lt; Prev</Button>
-        <div className='flex gap-2'>
+                    ></Card>
+                    )
+                })
+            }
+            </div>
+            <div className="flex items-center justify-between w-full h-32 mx-auto mb-8">
+            <Button onClick={Prev}>&lt; Prev</Button>
+            <div className='flex gap-2'>
             {
                 pages?.map(curr => {
                     return (
@@ -96,12 +102,13 @@ export default function Pics() {
                         setPage={setPage}
                         currPage={page} 
                         />
-                    )
-                })
+                        )
+                    })
+                }
+                </div>
+                <Button onClick={Next}>Next &gt;</Button>
+                </div>
+                </div>
+                </>
+                )
             }
-        </div>
-        <Button onClick={Next}>Next &gt;</Button>
-       </div>
-    </div>
-  )
-}
