@@ -19,9 +19,17 @@ export default function Card({
   const handleMouseOver = () => {
     setHover(true)
   }
+
+  // const errorThrower = () => {
+  //   if(likes > 1){
+  //     throw new Error("ha ha you got more likes")
+  //   } 
+  // }   custom error thrower for checking error boundaries.
   const handleMouseLeave = () => {
     setHover(false)
   }
+
+  // errorThrower()
  
     return (
        <div onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}
