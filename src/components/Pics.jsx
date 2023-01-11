@@ -69,19 +69,13 @@ export default function Pics() {
         PaginationArray()
     }, [page])
 
+    // use INfinite query will fail because the page is not included in the array.
 
-    // if (navigator && navigator.onLine) {
-    //     console.log('online')
-    // } else { // if there is a problem with internet
-    //     throw {
-    //         code: 'INTERNET_CONNECTION_ERROR',
-    //         message: 'there is a problem with your INTERNET, god damn it...'
-    //     }
-    // }
+  
    
     return (
         <>
-            <Nav setSearch={setSearch} setCategory={setCategory} />
+            <Nav setSearch={setSearch} setCategory={setCategory} setPage={setPage} />
             <div className='px-[5%] overflow-auto'>
                 {
                     isLoading && <div className='text-2xl font-semibold text-center'>Loading...</div>
