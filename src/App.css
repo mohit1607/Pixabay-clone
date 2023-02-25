@@ -2,21 +2,19 @@
   text-align: center;
 }
 
-
 .masonry {
-  column-count: 4;
-  column-gap: 1rem;
+  display: column;
+  columns: 4;
   /* the easiest masonary ever now give marginbottom to the cards.*/
 }
 
-option{
+option {
   border: none;
 }
 
 .half-black {
   background: rgba(0, 0, 0, 0.5);
 }
-
 
 @media screen and (max-width: 786px) {
   .masonry {
@@ -25,8 +23,8 @@ option{
   }
 }
 
-@media screen and (max-width: 600px){
-  .masonry{
+@media screen and (max-width: 600px) {
+  .masonry {
     column-count: 1;
     column-gap: 0;
   }
