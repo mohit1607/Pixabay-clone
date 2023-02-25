@@ -1,5 +1,5 @@
 import './App.css';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider, hashQueryKey } from 'react-query';
 import { ErrorFallback, Pics } from './components';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useEffect } from 'react';
@@ -17,6 +17,7 @@ function App() {
   }
   const handleOffline = () => {
     setIsOnline(false)
+    alert('You are offline check your internet connection')
   }
 
   useEffect(() => {
@@ -35,7 +36,9 @@ function App() {
         window.location.reload()
       }}>
         <QueryClientProvider client={queryClient}>
-         <Pics></Pics> 
+         {
+            isOnline ? <Pics></Pics> : <h1>Check your Inrernet connection</h1>
+         }
         </QueryClientProvider>
       </ErrorBoundary>
     </>
