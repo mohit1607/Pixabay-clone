@@ -71,8 +71,8 @@ export default function Pics() {
 
     // use INfinite query will fail because the page is not included in the array.
 
-  
-   
+
+
     return (
         <>
             <Nav setSearch={setSearch} setCategory={setCategory} setPage={setPage} />
@@ -95,13 +95,15 @@ export default function Pics() {
                         })
                     }
                 </div>
+                {/* <Button>Load more...</Button> */}
                 <div className="flex items-center justify-between w-full h-32 mx-auto mb-8">
                     <Button onClick={Prev}>&lt; Prev</Button>
                     <div className='flex gap-2'>
                         {
-                            pages?.map(curr => {
+                            pages?.map((curr,index) => {
                                 return (
                                     <PaginationBtn pageNo={curr}
+                                        key={index+1}
                                         setPage={setPage}
                                         currPage={page}
                                     />
